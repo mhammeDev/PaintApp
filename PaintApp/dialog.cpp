@@ -1,7 +1,7 @@
 #include "dialog.h"
 #include "mainwindow.h"
 #include "ui_dialog.h"
-#include "paintwidget.h"
+#include "paintwidgets.h"
 
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
@@ -72,11 +72,9 @@ void Dialog::on_createButton_clicked()
     int width = ui->widthSpinBox->value();
     int height = ui->heightSpinBox->value();
 
-    PaintWidget *paintWidget = new PaintWidget(width, height); // Passe la largeur et la hauteur
+    PaintWidgets *paintWidget = new PaintWidgets(width, height); // Passe la largeur et la hauteur
     paintWidget->setAttribute(Qt::WA_DeleteOnClose);
-    paintWidget->setModal(true);
     hide();
     paintWidget->showMaximized();
-    paintWidget->exec();
 }
 

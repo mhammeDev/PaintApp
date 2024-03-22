@@ -12,17 +12,17 @@ SOURCES += \
     dialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    paintwidget.cpp
+    paintwidgets.cpp
 
 HEADERS += \
     dialog.h \
     mainwindow.h \
-    paintwidget.h
+    paintwidgets.h
 
 FORMS += \
     dialog.ui \
     mainwindow.ui \
-    paintwidget.ui
+    paintwidgets.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
