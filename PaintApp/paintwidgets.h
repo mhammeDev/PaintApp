@@ -2,11 +2,17 @@
 #define PAINTWIDGETS_H
 
 #include <QMainWindow>
-#include <QPainter>
 #include <QMenuBar>
+#include <QPainter>
+#include <QPixmap>
+#include <QPoint>
+#include <QMouseEvent>
+#include <QFileDialog>
+#include <QMessageBox>
 
 
 namespace Ui {
+
 class PaintWidgets;
 }
 
@@ -15,19 +21,34 @@ class PaintWidgets : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit PaintWidgets(int width = 500, int height = 500,QWidget *parent = nullptr);
+    explicit PaintWidgets(int width = 500, int height = 500, const QString &filePath = QString(), const QImage& image = QImage(), QWidget *parent = nullptr);
     ~PaintWidgets();
 
-    void setDrawableAreaSize(int width, int height);
+public slots :
+    void saveImage();
+    void openFile();
 
-protected:
+
+  protected:
     void paintEvent(QPaintEvent *event) override;
-    void resizeEvent(QResizeEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+
+
+private slots:
+    void on_actionSauvegarder_triggered();
+    void on_actionOuvrir_triggered();
 
 private:
     Ui::PaintWidgets *ui;
-    QRect drawableArea;
-    QMenuBar *menuBar;
+    QString filePath;
+    bool drawing;
+    QPixmap canvas;
+    QPoint lastPoint;
+
 };
+
+
 
 #endif // PAINTWIDGETS_H

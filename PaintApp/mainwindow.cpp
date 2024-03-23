@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "dialog.h"
+#include "paintwidgets.h"
+
 
 MainWindow* MainWindow::instance = nullptr;
 
@@ -34,7 +36,22 @@ void MainWindow::on_CreateButton_clicked()
 
 void MainWindow::on_OpenButton_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, "Open a file","/home/");
-    // Now I can get my file with fileName
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Ouvrir un fichier"), QDir::homePath(), tr("Images (*.png *.jpeg *.jpg)"));
+    if (!fileName.isEmpty()) {
+        QImage image;
+        if (image.load(fileName) && image.width()<=1920 && image.height()<=1080) {
+            PaintWidgets *paintWidget = new PaintWidgets(image.width(), image.height(), fileName,image);
+
+            paintWidget->setAttribute(Qt::WA_DeleteOnClose);
+
+            hide();
+
+            paintWidget->showMaximized();
+
+
+        } else {
+            QMessageBox::warning(this, tr("Ouvrir un fichier"), tr("Le fichier n'a pas pu être ouvert."));
+        }
+    }
 }
 

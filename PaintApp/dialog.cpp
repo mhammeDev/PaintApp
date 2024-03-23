@@ -66,15 +66,22 @@ void Dialog::on_cancelButton_clicked()
         }
 }
 
-
 void Dialog::on_createButton_clicked()
+
 {
+
     int width = ui->widthSpinBox->value();
+
     int height = ui->heightSpinBox->value();
 
-    PaintWidgets *paintWidget = new PaintWidgets(width, height); // Passe la largeur et la hauteur
-    paintWidget->setAttribute(Qt::WA_DeleteOnClose);
-    hide();
-    paintWidget->showMaximized();
-}
 
+
+    PaintWidgets *paintWidget = new PaintWidgets(width, height, ui->saveFile->text()); // Passe la largeur et la hauteur
+
+    paintWidget->setAttribute(Qt::WA_DeleteOnClose);
+
+    hide();
+
+    paintWidget->showMaximized();
+
+}
