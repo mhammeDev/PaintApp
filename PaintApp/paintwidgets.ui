@@ -13,23 +13,7 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>100</y>
-      <width>1051</width>
-      <height>661</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_5">
-     <item row="0" column="0">
-      <widget class="QWidget" name="drawingArea_5" native="true"/>
-     </item>
-    </layout>
-   </widget>
-  </widget>
+  <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -50,27 +34,167 @@
    </widget>
    <addaction name="menuFile"/>
   </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="pen"/>
+   <addaction name="eraser"/>
+   <addaction name="bucket"/>
+   <addaction name="pipet"/>
+   <addaction name="loupe"/>
+   <addaction name="line"/>
+   <addaction name="rectangle"/>
+   <addaction name="circle"/>
+   <addaction name="separator"/>
+  </widget>
   <action name="actionNouveau">
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/newFile.png</normaloff>:/icon/Icons/newFile.png</iconset>
+   </property>
    <property name="text">
     <string>Nouveau</string>
    </property>
   </action>
   <action name="actionOuvrir">
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/openFile.png</normaloff>:/icon/Icons/openFile.png</iconset>
+   </property>
    <property name="text">
     <string>Ouvrir</string>
    </property>
   </action>
   <action name="actionSauvegarder">
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/save.png</normaloff>:/icon/Icons/save.png</iconset>
+   </property>
    <property name="text">
     <string>Sauvegarder</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionQuitter">
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/leave.png</normaloff>:/icon/Icons/leave.png</iconset>
+   </property>
    <property name="text">
     <string>Quitter</string>
    </property>
   </action>
+  <action name="pen">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/pen.png</normaloff>:/icon/Icons/pen.png</iconset>
+   </property>
+   <property name="text">
+    <string> </string>
+   </property>
+  </action>
+  <action name="eraser">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/eraser.png</normaloff>:/icon/Icons/eraser.png</iconset>
+   </property>
+   <property name="text">
+    <string> </string>
+   </property>
+  </action>
+  <action name="bucket">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/bucket.png</normaloff>:/icon/Icons/bucket.png</iconset>
+   </property>
+   <property name="text">
+    <string> </string>
+   </property>
+  </action>
+  <action name="pipet">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/pipet.png</normaloff>:/icon/Icons/pipet.png</iconset>
+   </property>
+   <property name="text">
+    <string> </string>
+   </property>
+  </action>
+  <action name="loupe">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/loupe.png</normaloff>:/icon/Icons/loupe.png</iconset>
+   </property>
+   <property name="text">
+    <string> </string>
+   </property>
+  </action>
+  <action name="line">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/line.png</normaloff>:/icon/Icons/line.png</iconset>
+   </property>
+   <property name="text">
+    <string> </string>
+   </property>
+  </action>
+  <action name="rectangle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/rectangle.png</normaloff>:/icon/Icons/rectangle.png</iconset>
+   </property>
+   <property name="text">
+    <string> </string>
+   </property>
+  </action>
+  <action name="circle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/elipse.png</normaloff>:/icon/Icons/elipse.png</iconset>
+   </property>
+   <property name="text">
+    <string> </string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="Icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

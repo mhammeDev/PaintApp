@@ -11,8 +11,8 @@ Dialog::Dialog(QWidget *parent) :
     ui->saveFile->setReadOnly(true);
     ui->saveFile->setText("/home/"+ui->projectName->text().trimmed()+".png");
 
-    ui->widthSpinBox->setMaximum(1920);
-    ui->heightSpinBox->setMaximum(1080);
+    ui->widthSpinBox->setMaximum(2000);
+    ui->heightSpinBox->setMaximum(2000);
 
     ui->widthSpinBox->setValue(500);
     ui->heightSpinBox->setValue(500);

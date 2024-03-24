@@ -39,7 +39,7 @@ void MainWindow::on_OpenButton_clicked()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Ouvrir un fichier"), QDir::homePath(), tr("Images (*.png *.jpeg *.jpg)"));
     if (!fileName.isEmpty()) {
         QImage image;
-        if (image.load(fileName) && image.width()<=1920 && image.height()<=1080) {
+        if (image.load(fileName)) {
             PaintWidgets *paintWidget = new PaintWidgets(image.width(), image.height(), fileName,image);
 
             paintWidget->setAttribute(Qt::WA_DeleteOnClose);
