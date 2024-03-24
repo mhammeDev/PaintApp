@@ -1,5 +1,7 @@
 #include "paintwidgets.h"
 #include "ui_paintwidgets.h"
+#include "drawingcommand.h"
+
 
 
 
@@ -10,7 +12,8 @@ PaintWidgets::PaintWidgets(int width, int height, const QString &filePath, const
     drawing(false),
     currentTool(Pen),
     currentColor(Qt::black),
-    intensity(5)
+    intensity(5),
+    saveChange(false)
 
 {
 
@@ -45,6 +48,9 @@ PaintWidgets::PaintWidgets(int width, int height, const QString &filePath, const
         this->resize(canvas.size());
     }
 
+
+
+
     setFixedSize(width, height);
 }
 
@@ -65,16 +71,18 @@ void PaintWidgets::mousePressEvent(QMouseEvent *event) {
         QPainter painter(&canvas);
         switch (currentTool) {
             case Pen:
+                saveChange=false;
                 painter.setPen(QPen(currentColor, intensity, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
                 painter.drawPoint(lastPoint);
                 break;
             case Eraser:
+                saveChange=false;
                 painter.setPen(QPen(Qt::white, intensity, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
                 painter.drawPoint(lastPoint);
                 break;
             case Bucket:
-                painter.end();
-                floodFill(lastPoint,currentColor);
+                saveChange=false;
+                floodFill(lastPoint,currentColor, painter);
                 drawing = false;
                 break;
              case Pipet:
@@ -103,6 +111,7 @@ void PaintWidgets::mousePressEvent(QMouseEvent *event) {
 
         }
         painter.end();
+        initialState = canvas;
         update();
     } else if(event->button() == Qt::RightButton && currentTool==Loupe){
         QPoint mousePos = event->pos();
@@ -120,11 +129,13 @@ void PaintWidgets::mouseMoveEvent(QMouseEvent *event) {
         QPainter painter(&canvas);
         switch (currentTool) {
             case Pen:
+                saveChange=false;
                 painter.setPen(QPen(currentColor, intensity, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
                 painter.drawLine(lastPoint, event->pos());
                 lastPoint=event->pos();
                 break;
              case Eraser:
+                saveChange=false;
                 painter.setPen(QPen(Qt::white, intensity, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
                 painter.drawLine(lastPoint, event->pos());
                 lastPoint=event->pos();
@@ -171,14 +182,17 @@ void PaintWidgets::mouseReleaseEvent(QMouseEvent *event) {
                 case Pipet:
                     break;
                 case Line:
+                    saveChange=false;
                     painter.setPen(QPen(currentColor, intensity, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
                     painter.drawLine(lastPoint, event->pos());
                     drawing=false;
                     break;
                 case Rectangle:
+                    saveChange=false;
                     painter.drawRect(rect);
                     break;
                 case Ellipse:
+                    saveChange=false;
                     painter.drawEllipse(rect);
                     break;
                 case Loupe:
@@ -188,7 +202,14 @@ void PaintWidgets::mouseReleaseEvent(QMouseEvent *event) {
 
                 }
                 lastPoint=event->pos();
+                painter.end();
                 update();
+                finalState = canvas;
+                undoStack.push(new DrawingCommand(initialState, finalState, [this](const QPixmap& state) {
+                    canvas = state;
+                    update();
+                }));
+
 
     }
 }
@@ -241,6 +262,7 @@ void PaintWidgets::saveImage() {
 
 void PaintWidgets::on_actionSauvegarder_triggered()
 {
+    saveChange=true;
     saveImage();
 }
 
@@ -296,7 +318,7 @@ void PaintWidgets::setIntensity(int value)
 
 }
 
-void PaintWidgets::floodFill(const QPoint &startPoint, const QColor &newColor) {
+void PaintWidgets::floodFill(const QPoint &startPoint, const QColor &newColor, QPainter &painter) {
     if (!canvas.rect().contains(startPoint)) {
         return;
     }
@@ -310,7 +332,6 @@ void PaintWidgets::floodFill(const QPoint &startPoint, const QColor &newColor) {
     QQueue<QPoint> queue;
     queue.enqueue(startPoint);
 
-    QPainter painter(&canvas);
     painter.setPen(QPen(newColor, 1));
 
     while (!queue.isEmpty()) {
@@ -428,5 +449,37 @@ void PaintWidgets::on_circle_triggered()
     checkAndUncheck(ui->circle);
     setCursor(Qt::CrossCursor);
 
+}
+
+void PaintWidgets::closeEvent(QCloseEvent *event) {
+    if (saveChange==false) {
+        QMessageBox::StandardButton reply = QMessageBox::question(this, tr("Confirmer la fermeture"),
+                                                                  tr("Des modifications non sauvegardées ont été détectées. Voulez-vous sauvegarder vos changements avant de quitter ?"),
+                                                                  QMessageBox::Yes|QMessageBox::No|QMessageBox::Cancel);
+        if (reply == QMessageBox::Yes) {
+            saveImage();
+            event->accept();
+        } else if (reply == QMessageBox::No) {
+            event->accept();
+        } else {
+            event->ignore();
+        }
+    } else {
+        event->accept();
+    }
+}
+
+void PaintWidgets::on_undo_triggered()
+{
+    saveChange=false;
+    undoStack.undo();
+
+}
+
+
+void PaintWidgets::on_redo_triggered()
+{
+    saveChange=false;
+    undoStack.redo();
 }
 

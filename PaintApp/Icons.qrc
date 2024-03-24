@@ -12,5 +12,7 @@
         <file>Icons/eraser.png</file>
         <file>Icons/elipse.png</file>
         <file>Icons/bucket.png</file>
+        <file>Icons/undo.png</file>
+        <file>Icons/redo.png</file>
     </qresource>
 </RCC>

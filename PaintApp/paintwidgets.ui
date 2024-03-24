@@ -52,6 +52,8 @@
    <addaction name="line"/>
    <addaction name="rectangle"/>
    <addaction name="circle"/>
+   <addaction name="undo"/>
+   <addaction name="redo"/>
    <addaction name="separator"/>
   </widget>
   <action name="actionNouveau">
@@ -105,7 +107,7 @@
      <normaloff>:/icon/Icons/pen.png</normaloff>:/icon/Icons/pen.png</iconset>
    </property>
    <property name="text">
-    <string> </string>
+    <string/>
    </property>
   </action>
   <action name="eraser">
@@ -117,7 +119,7 @@
      <normaloff>:/icon/Icons/eraser.png</normaloff>:/icon/Icons/eraser.png</iconset>
    </property>
    <property name="text">
-    <string> </string>
+    <string/>
    </property>
   </action>
   <action name="bucket">
@@ -129,7 +131,7 @@
      <normaloff>:/icon/Icons/bucket.png</normaloff>:/icon/Icons/bucket.png</iconset>
    </property>
    <property name="text">
-    <string> </string>
+    <string/>
    </property>
   </action>
   <action name="pipet">
@@ -141,7 +143,7 @@
      <normaloff>:/icon/Icons/pipet.png</normaloff>:/icon/Icons/pipet.png</iconset>
    </property>
    <property name="text">
-    <string> </string>
+    <string/>
    </property>
   </action>
   <action name="loupe">
@@ -153,7 +155,7 @@
      <normaloff>:/icon/Icons/loupe.png</normaloff>:/icon/Icons/loupe.png</iconset>
    </property>
    <property name="text">
-    <string> </string>
+    <string/>
    </property>
   </action>
   <action name="line">
@@ -165,7 +167,7 @@
      <normaloff>:/icon/Icons/line.png</normaloff>:/icon/Icons/line.png</iconset>
    </property>
    <property name="text">
-    <string> </string>
+    <string/>
    </property>
   </action>
   <action name="rectangle">
@@ -177,7 +179,7 @@
      <normaloff>:/icon/Icons/rectangle.png</normaloff>:/icon/Icons/rectangle.png</iconset>
    </property>
    <property name="text">
-    <string> </string>
+    <string/>
    </property>
   </action>
   <action name="circle">
@@ -189,7 +191,31 @@
      <normaloff>:/icon/Icons/elipse.png</normaloff>:/icon/Icons/elipse.png</iconset>
    </property>
    <property name="text">
+    <string/>
+   </property>
+  </action>
+  <action name="undo">
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/undo.png</normaloff>:/icon/Icons/undo.png</iconset>
+   </property>
+   <property name="text">
     <string> </string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="redo">
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/redo.png</normaloff>:/icon/Icons/redo.png</iconset>
+   </property>
+   <property name="text">
+    <string> </string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Z</string>
    </property>
   </action>
  </widget>

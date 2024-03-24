@@ -10,12 +10,14 @@ CONFIG += c++11
 
 SOURCES += \
     dialog.cpp \
+    drawingcommand.cpp \
     main.cpp \
     mainwindow.cpp \
     paintwidgets.cpp
 
 HEADERS += \
     dialog.h \
+    drawingcommand.h \
     mainwindow.h \
     paintwidgets.h
 

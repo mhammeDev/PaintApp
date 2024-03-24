@@ -12,6 +12,12 @@
 #include <QSlider>
 #include <QColorDialog>
 #include <QQueue>
+#include <QScrollArea>
+#include <QGridLayout>
+#include <QCloseEvent>
+#include <QMessageBox>
+#include <QUndoStack>
+
 
 
 namespace Ui {
@@ -34,7 +40,7 @@ public slots :
     void checkAndUncheck(QAction *newC);
     void updateCursorForDrawing();
     void setIntensity(int value);
-    void floodFill(const QPoint &startPoint, const QColor &newColor);
+    void floodFill(const QPoint &startPoint, const QColor &newColor, QPainter &painter);
     void applyZoom(double zoomFactor, QPoint zoomCenter);
 
 
@@ -44,6 +50,7 @@ public slots :
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     QIcon createColorIcon(const QColor &color);
+    void closeEvent(QCloseEvent *event) override;
 
 
 private slots:
@@ -66,6 +73,10 @@ private slots:
 
     void on_circle_triggered();
 
+    void on_undo_triggered();
+
+    void on_redo_triggered();
+
 private:
     Ui::PaintWidgets *ui;
     QString filePath;
@@ -82,6 +93,11 @@ private:
     double zoomLevel = 1.0;
     QPointF contentOffset = QPointF(0, 0);
     QPoint currentPoint;
+    bool saveChange;
+    QUndoStack undoStack;
+    QPixmap initialState;
+    QPixmap finalState;
+
 
 };
 
