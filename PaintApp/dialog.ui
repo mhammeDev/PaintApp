@@ -676,6 +676,31 @@
     </item>
    </layout>
   </widget>
+  <widget class="QComboBox" name="comboBox">
+   <property name="geometry">
+    <rect>
+     <x>750</x>
+     <y>150</y>
+     <width>96</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>.png</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>.jpeg</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>.jpg</string>
+    </property>
+   </item>
+  </widget>
  </widget>
  <resources/>
  <connections/>

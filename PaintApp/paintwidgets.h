@@ -77,6 +77,12 @@ private slots:
 
     void on_redo_triggered();
 
+    void on_actionQuitter_triggered();
+
+    void on_newPaper_triggered();
+
+    void on_actionNouveau_triggered();
+
 private:
     Ui::PaintWidgets *ui;
     QString filePath;

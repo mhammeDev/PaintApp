@@ -1,6 +1,7 @@
 #include "paintwidgets.h"
 #include "ui_paintwidgets.h"
 #include "drawingcommand.h"
+#include "dialog.h"
 
 
 
@@ -105,10 +106,6 @@ void PaintWidgets::mousePressEvent(QMouseEvent *event) {
                 QPoint mousePos = event->pos();
                 applyZoom(1.1, mousePos);
                 break;
-
-
-
-
         }
         painter.end();
         initialState = canvas;
@@ -292,15 +289,15 @@ void PaintWidgets::onColorPickerClicked()
 }
 
 void PaintWidgets::updateCursorForDrawing() {
-    int diameter = intensity * 2; // Le diamètre du cercle basé sur l'intensité
-    QPixmap pixmap(diameter + 2, diameter + 2); // +2 pour la bordure
-    pixmap.fill(Qt::transparent); // Fond transparent pour le curseur
+    int diameter = intensity * 2;
+    QPixmap pixmap(diameter + 2, diameter + 2);
+    pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
     painter.setRenderHint(QPainter::Antialiasing);
-    painter.setPen(Qt::black); // Bordure noire pour le cercle
-    painter.drawEllipse(1, 1, diameter, diameter); // Dessiner le cercle
+    painter.setPen(Qt::black);
+    painter.drawEllipse(1, 1, diameter, diameter);
     QCursor cursor(pixmap);
-    setCursor(cursor); // Définit le curseur personnalisé pour le widget
+    setCursor(cursor);
 }
 
 void PaintWidgets::checkAndUncheck(QAction *newC){
@@ -481,5 +478,37 @@ void PaintWidgets::on_redo_triggered()
 {
     saveChange=false;
     undoStack.redo();
+}
+
+
+void PaintWidgets::on_actionQuitter_triggered()
+{
+    saveChange=true;
+    saveImage();
+    this->close();
+}
+
+
+void PaintWidgets::on_newPaper_triggered()
+{
+    saveChange=false;
+
+    initialState = canvas;
+    canvas.fill(Qt::white);
+    finalState = canvas;
+
+    undoStack.push(new DrawingCommand(initialState, finalState, [this](const QPixmap& state) {
+        canvas = state;
+        update();
+    }));
+}
+
+
+void PaintWidgets::on_actionNouveau_triggered()
+{
+    Dialog dialog;
+    dialog.setModal(true);
+    close();
+    dialog.exec();
 }
 

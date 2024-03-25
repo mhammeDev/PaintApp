@@ -54,6 +54,7 @@
    <addaction name="circle"/>
    <addaction name="undo"/>
    <addaction name="redo"/>
+   <addaction name="newPaper"/>
    <addaction name="separator"/>
   </widget>
   <action name="actionNouveau">
@@ -92,7 +93,7 @@
      <normaloff>:/icon/Icons/leave.png</normaloff>:/icon/Icons/leave.png</iconset>
    </property>
    <property name="text">
-    <string>Quitter</string>
+    <string>Sauvegarder et Quitter</string>
    </property>
   </action>
   <action name="pen">
@@ -200,7 +201,7 @@
      <normaloff>:/icon/Icons/undo.png</normaloff>:/icon/Icons/undo.png</iconset>
    </property>
    <property name="text">
-    <string> </string>
+    <string/>
    </property>
    <property name="shortcut">
     <string>Ctrl+Z</string>
@@ -212,10 +213,19 @@
      <normaloff>:/icon/Icons/redo.png</normaloff>:/icon/Icons/redo.png</iconset>
    </property>
    <property name="text">
-    <string> </string>
+    <string/>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+Z</string>
+   </property>
+  </action>
+  <action name="newPaper">
+   <property name="icon">
+    <iconset resource="Icons.qrc">
+     <normaloff>:/icon/Icons/paper.png</normaloff>:/icon/Icons/paper.png</iconset>
+   </property>
+   <property name="text">
+    <string> </string>
    </property>
   </action>
  </widget>

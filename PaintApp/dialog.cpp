@@ -7,9 +7,11 @@ Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog)
 {
+    baseDir = QDir::homePath() + "/";
+
     ui->setupUi(this);
     ui->saveFile->setReadOnly(true);
-    ui->saveFile->setText("/home/"+ui->projectName->text().trimmed()+".png");
+    ui->saveFile->setText(baseDir+ui->projectName->text().trimmed()+ui->comboBox->currentText());
 
     ui->widthSpinBox->setMaximum(2000);
     ui->heightSpinBox->setMaximum(2000);
@@ -29,16 +31,18 @@ Dialog::~Dialog()
 void Dialog::on_ButtonToChoose_clicked()
 {
     QString dir = QFileDialog::getExistingDirectory(this, tr("Choisir le dossier de sauvegarde"),
-                                                       "/home",
+                                                       QDir::homePath(),
                                                        QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
        if(dir.isEmpty()) {
-           return; // Ne fais rien si aucun dossier n'a été sélectionné
+           return;
        }
+
+       baseDir = dir + "/";
 
        QString nameFile = ui->projectName->text().trimmed();
 
-       QString fullPath = dir + QDir::separator() + nameFile + ".png";
+       QString fullPath = baseDir + nameFile + ui->comboBox->currentText();
        ui->saveFile->setText(fullPath);
 
 }
@@ -46,12 +50,8 @@ void Dialog::on_ButtonToChoose_clicked()
 
 void Dialog::on_projectName_textChanged(const QString &arg1)
 {
-    if(arg1.isEmpty()){
-        ui->projectName->setText("project");
-        QMessageBox::warning(this, "Erreur", "Impossible de laisser ce champ vide");
-        return;
-    }
-    ui->saveFile->setText("/home/"+ arg1 +".png");
+    QString selectedFormat = ui->comboBox->currentText();
+    ui->saveFile->setText(baseDir+ arg1 +selectedFormat);
 
 
 }
@@ -70,6 +70,12 @@ void Dialog::on_createButton_clicked()
 
 {
 
+    if(ui->projectName->text().isEmpty()){
+        ui->projectName->setText("project");
+        QMessageBox::warning(this, "Erreur", "Impossible de laisser le champ nom vide");
+        return;
+    }
+
     int width = ui->widthSpinBox->value();
 
     int height = ui->heightSpinBox->value();
@@ -85,3 +91,16 @@ void Dialog::on_createButton_clicked()
     paintWidget->showMaximized();
 
 }
+
+void Dialog::on_comboBox_activated(const QString &arg1)
+{
+    QString currentPath = ui->saveFile->text();
+     int lastDotIndex = currentPath.lastIndexOf('.');
+     if(lastDotIndex != -1) {
+         currentPath = currentPath.left(lastDotIndex);
+     }
+
+     ui->saveFile->setText(currentPath + arg1);
+
+}
+

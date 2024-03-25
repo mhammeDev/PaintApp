@@ -28,8 +28,11 @@ private slots:
 
     void on_createButton_clicked();
 
+    void on_comboBox_activated(const QString &arg1);
+
 private:
     Ui::Dialog *ui;
+    QString baseDir;
 };
 
 #endif // DIALOG_H
